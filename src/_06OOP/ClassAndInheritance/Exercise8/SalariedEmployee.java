@@ -1,11 +1,11 @@
 package _06OOP.ClassAndInheritance.Exercise8;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class SalariedEmployee extends Employee {
     private static final LocalDate today = LocalDate.now();
     private double annualSalary;
+    private double dayLeaves;
     private boolean isRetired;
 
     public SalariedEmployee(String name,
@@ -17,34 +17,56 @@ public class SalariedEmployee extends Employee {
         super(name, birthDate, employeeId, hireDate, endDate);
         this.annualSalary = annualSalary;
         this.isRetired = false;
+        this.dayLeaves = 0;
     }
+
+    public double getAnnualSalary() {
+        return annualSalary;
+    }
+
+    public void setAnnualSalary(double annualSalary) {
+        this.annualSalary = annualSalary;
+    }
+
+    public double getDayLeaves() {
+        return dayLeaves;
+    }
+
+    public void setDayLeaves(double dayLeaves) {
+        this.dayLeaves = dayLeaves;
+    }
+
+    @Override
+    public double collectPay() {
+        return annualSalary * getYearsWorked();
+    }
+
+    private double getYearsWorked() {
+        LocalDate start = DateUtil.convertToLocalDate(this.getHireDate());
+        LocalDate end = DateUtil.convertToLocalDate(this.getEndDate());
+        end = end.isAfter(today) ? today : end;
+        if (start.isAfter(today)) {
+            System.out.println("Cannot calculate working hours. Employee has not yet started the job.");
+            return 0;
+        }
+        return DateUtil.getYearsWorked(start, end, this.dayLeaves);
+    }
+
     public void retire() {
-        LocalDate startDate = convertToLocalDate(this.getHireDate());
+        LocalDate startDate = DateUtil.convertToLocalDate(this.getHireDate());
 
         if (startDate.isAfter(today)) {
             System.out.println("Cannot retire this employee. Employee has not yet started the job.");
             return;
         }
             this.isRetired = true;
-            terminate(convertToString(today));
+            terminate(DateUtil.convertToString(today));
             System.out.println(this.getName() + " retired.");
     }
 
     public boolean isRetired() {
-        LocalDate startDate = convertToLocalDate(this.getHireDate());
+        LocalDate startDate = DateUtil.convertToLocalDate(this.getHireDate());
         return !startDate.isAfter(today) && !this.isRetired;
-    }
-
-    // Format and convert the String to LocalDate
-    private LocalDate convertToLocalDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(date, formatter);
-    }
-
-    // Format and convert LocalDate to String
-    private String convertToString(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return date.format(formatter);
     }
 
     @Override
