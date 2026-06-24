@@ -10,12 +10,11 @@ public class Main {
         SalariedEmployee Phoebe = new SalariedEmployee("Phoebe",
                 "04/06/2003",
                 235415,
-                65000,
-                "11/12/2025",
+                4595,
+                "24/12/2025",
                 "26/05/2028");
-
-        // Employee info
-        System.out.println("Employee info:\n" + Phoebe);
+        Phoebe.setDayLeaves(8);
+        System.out.printf("Phoebe paycheck up-to-date: $%,.2f\n",Phoebe.collectPay() );
 
         // Check retirement status
         System.out.println("Is " + Phoebe.getName() + " retired? " + (Phoebe.isRetired() ? "Yes" : "No"));
@@ -30,7 +29,7 @@ public class Main {
                 "20/12/2026");
         Kevin.setDayLeaves(2);
         Kevin.setBonusHours(4);
-        System.out.printf("Kevin paycheck up-to-date: $%,f",Kevin.collectPay() );
+        System.out.printf("Kevin paycheck up-to-date: $%,.2f",Kevin.collectPay() );
 
     }
 }
