@@ -26,9 +26,11 @@ public class Main {
                 "29/05/2001",
                 89632,
                 35,
-                "21/06/2026",
-                "20/3/2028");
+                "22/05/2026",
+                "20/12/2026");
+        Kevin.setDayLeaves(2);
+        Kevin.setBonusHours(4);
+        System.out.printf("Kevin paycheck up-to-date: $%,f",Kevin.collectPay() );
 
-        System.out.println("Employee info:\n" + Kevin);
     }
 }
