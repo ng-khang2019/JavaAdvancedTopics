@@ -20,19 +20,19 @@ public class SalariedEmployee extends Employee {
     }
     public void retire() {
         LocalDate startDate = convertToLocalDate(this.getHireDate());
-        LocalDate endDate = convertToLocalDate((this.getEndDate()));
 
         if (startDate.isAfter(today)) {
             System.out.println("Cannot retire this employee. Employee has not yet started the job.");
             return;
         }
             this.isRetired = true;
+            terminate(convertToString(today));
             System.out.println(this.getName() + " retired.");
     }
 
     public boolean isRetired() {
         LocalDate startDate = convertToLocalDate(this.getHireDate());
-        return startDate.isBefore(today) && this.isRetired;
+        return !startDate.isAfter(today) && !this.isRetired;
     }
 
     // Format and convert the String to LocalDate
