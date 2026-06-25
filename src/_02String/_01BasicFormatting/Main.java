@@ -1,4 +1,4 @@
-package _02StringBuilderAndStringBuffer._01BasicFormatting;
+package _02String._01BasicFormatting;
 
 public class Main {
     public static void main(String[] args) {
